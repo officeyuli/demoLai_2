@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">demoLai_2</string>
     <string name="action_settings">Settings</string>
-    <string name="rec_button">Start Rec!</string>
-    <string name="upload_button">Upload!</string>
+    <string name="rec_button">Start Rec</string>
+    <string name="upload_button">Upload</string>
     <string name="recButtonClickMessage">recButtonClick!</string>
     <string name="uploadButtonClickMessage">uploadButtonClick!</string>
 </resources>
