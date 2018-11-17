@@ -1,5 +1,7 @@
 package com.example.santai.demolai_2;
 
+import java.io.File;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,12 +13,20 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.os.Environment;
+import android.net.Uri;
+import android.content.Intent;
+import android.provider.MediaStore;
 
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Vector<YouTubeVideos> youtubeVideos = new Vector<YouTubeVideos>();
+    static int TAKE_PIC = 1;
+    Uri outPutfileUri;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//呼叫父類的onCreate
@@ -68,9 +78,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void recButtonOnClick(View view) {
-        Toast toast = Toast.makeText(this, R.string.recButtonClickMessage, Toast.LENGTH_SHORT);
-        toast.show();
+    public void recButtonOnClick(View v) {
+        Intent intent= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        File file = new File(Environment.getExternalStorageDirectory(),
+                "MyPhoto.mpeg");
+        outPutfileUri = Uri.fromFile(file);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outPutfileUri);
+        startActivityForResult(intent, TAKE_PIC);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data)
+    {
+        if (requestCode == TAKE_PIC && resultCode == RESULT_OK){
+            Toast.makeText(this, "Recorded " + outPutfileUri.toString(),Toast.LENGTH_LONG).show();
+        }
     }
 
     public void uploadButtonOnClick(View view) {
