@@ -4,9 +4,11 @@ import java.io.File;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import 	android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +27,8 @@ public class todaysRankActivity extends AppCompatActivity {
     Vector<YouTubeVideos> youtubeVideos = new Vector<YouTubeVideos>();
     static int TAKE_PIC = 1;
     Uri outPutfileUri;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigation_view;
 
 
     @Override
@@ -53,6 +57,46 @@ public class todaysRankActivity extends AppCompatActivity {
         youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/UV6ine69kQ0\" frameborder=\"0\" allowfullscreen></iframe>") );
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
+
+        //側拉選單開始
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        navigation_view = (NavigationView) findViewById(R.id.nav_view);
+
+        // 為navigatin_view設置點擊事件
+        navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                // 點選時收起選單
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                // 取得選項id
+                int id = item.getItemId();
+
+                // 依照id判斷點了哪個項目並做相應事件
+                if (id == R.id.todaysRank) {
+                    // 按下「本日排名」要做的事
+//                    Intent intent = new Intent();
+//                    intent.setClass(todaysRankActivity.this, todaysRankActivity.class);
+//                    startActivity(intent);
+//
+//                    todaysRankActivity.this.finish();//結束目前 Activity
+                    return true;
+                }
+                else if (id == R.id.myVideo) {
+                    // 按下「我的影片」要做的事
+
+                    return true;
+                } else if (id == R.id.settings) {
+                    // 按下「設定」要做的事
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+        //側拉選單結束
     }
 
 
