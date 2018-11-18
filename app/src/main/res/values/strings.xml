@@ -5,4 +5,7 @@
     <string name="upload_button">Upload</string>
     <string name="recButtonClickMessage">recButtonClick!</string>
     <string name="uploadButtonClickMessage">uploadButtonClick!</string>
+    <string name="todays_rank_title">今日排行!</string>
+    <string name="my_video_title">我的影片!</string>
+    <string name="settings_title">設定!</string>
 </resources>
