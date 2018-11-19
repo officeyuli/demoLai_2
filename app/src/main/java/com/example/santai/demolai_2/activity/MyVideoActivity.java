@@ -1,58 +1,60 @@
 package com.example.santai.demolai_2.activity;
 
-import java.io.File;
+import android.content.Intent;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import 	android.support.v4.widget.DrawerLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.MediaController;
 import android.widget.Toast;
-import android.os.Environment;
-import android.net.Uri;
-import android.content.Intent;
-import android.provider.MediaStore;
+import android.widget.VideoView;
 
 import com.example.santai.demolai_2.R;
 import com.example.santai.demolai_2.object.youtube.VideoAdapter;
 import com.example.santai.demolai_2.object.youtube.YouTubeVideos;
 
+import java.io.File;
 import java.util.Vector;
 
-public class todaysRankActivity extends AppCompatActivity {
+public class MyVideoActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Vector<YouTubeVideos> youtubeVideos = new Vector<YouTubeVideos>();
     static int TAKE_PIC = 1;
     Uri outPutfileUri;
     private DrawerLayout drawerLayout;
     private NavigationView navigation_view;
-
+    //我的影片
+    private VideoView vidView;
+    private MediaController vidControl;
+    String vidAddress = "rtsp://192.168.0.199/myvideo.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//呼叫父類的onCreate
-        setContentView(R.layout.activity_todays_rank);//設置畫面
+        setContentView(R.layout.my_video);//設置畫面
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//抓取畫面元件
 //        setSupportActionBar(toolbar);//
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);//抓取畫面元件
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//設置監聽器
-                Snackbar.make(view, "按鈕點擊", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //我的影片
+        vidView = (VideoView) findViewById(R.id.myVideo);
+        vidControl = new MediaController(this);
+        vidControl.setAnchorView(vidView);
+        vidView.setMediaController(vidControl);
 
+
+        //影片列表
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager( new GridLayoutManager(this,2));
@@ -64,7 +66,7 @@ public class todaysRankActivity extends AppCompatActivity {
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
 
-        //側拉選單開始
+        //側拉選單
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigation_view = (NavigationView) findViewById(R.id.nav_view);
 
@@ -82,28 +84,28 @@ public class todaysRankActivity extends AppCompatActivity {
                 // 依照id判斷點了哪個項目並做相應事件
                 if (id == R.id.todaysRank) {
                     // 按下「本日排名」要做的事
-//                    Intent intent = new Intent();
-//                    intent.setClass(todaysRankActivity.this, todaysRankActivity.class);
-//                    startActivity(intent);
-//
-//                    todaysRankActivity.this.finish();//結束目前 Activity
+                    Intent intent = new Intent();
+                    intent.setClass(MyVideoActivity.this, todaysRankActivity.class);
+                    startActivity(intent);
+
+                    MyVideoActivity.this.finish();//結束目前 Activity
                     return true;
                 }
                 else if (id == R.id.myVideo) {
                     // 按下「我的影片」要做的事
-                    Intent intent = new Intent();
-                    intent.setClass(todaysRankActivity.this, MyVideoActivity.class);
-                    startActivity(intent);
-
-                    todaysRankActivity.this.finish();//結束目前 Activity
-                    return true;
+//                    Intent intent = new Intent();
+//                    intent.setClass(MyVideoActivity.this, MyVideoActivity.class);
+//                    startActivity(intent);
+//
+//                    MyVideoActivity.this.finish();//結束目前 Activity
+//                    return true;
                 } else if (id == R.id.settings) {
                     // 按下「設定」要做的事
                     Intent intent = new Intent();
-                    intent.setClass(todaysRankActivity.this, SettingActivity.class);
+                    intent.setClass(MyVideoActivity.this, SettingActivity.class);
                     startActivity(intent);
 
-                    todaysRankActivity.this.finish();//結束目前 Activity
+                    MyVideoActivity.this.finish();//結束目前 Activity
                     return true;
                 }
 
@@ -136,5 +138,25 @@ public class todaysRankActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void recButtonOnClick(View v) {
+        Intent intent= new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        File file = new File(Environment.getExternalStorageDirectory(),
+                "MyPhoto.mpeg");
+        outPutfileUri = Uri.fromFile(file);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outPutfileUri);
+        startActivityForResult(intent, TAKE_PIC);
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data)
+    {
+        if (requestCode == TAKE_PIC && resultCode == RESULT_OK){
+            Toast.makeText(this, "Recorded " + outPutfileUri.toString(),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void uploadButtonOnClick(View view) {
+        Toast toast = Toast.makeText(this, R.string.uploadButtonClickMessage, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }
