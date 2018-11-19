@@ -1,4 +1,4 @@
-package com.example.santai.demolai_2;
+package com.example.santai.demolai_2.object.youtube;
 
 public class YouTubeVideos {
     private String videoUrl;

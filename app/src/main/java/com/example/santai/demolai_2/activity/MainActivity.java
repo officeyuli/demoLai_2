@@ -1,4 +1,4 @@
-package com.example.santai.demolai_2;
+package com.example.santai.demolai_2.activity;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.santai.demolai_2.R;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.santai.demolai_2;
+package com.example.santai.demolai_2.object.youtube;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+
+import com.example.santai.demolai_2.R;
+
 import java.util.List;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     private List<YouTubeVideos> youtubeVideoList;

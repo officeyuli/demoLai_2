@@ -1,4 +1,4 @@
-package com.example.santai.demolai_2;
+package com.example.santai.demolai_2.activity;
 
 import java.io.File;
 
@@ -9,8 +9,10 @@ import android.support.design.widget.Snackbar;
 import 	android.support.v4.widget.DrawerLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,10 @@ import android.os.Environment;
 import android.net.Uri;
 import android.content.Intent;
 import android.provider.MediaStore;
+
+import com.example.santai.demolai_2.R;
+import com.example.santai.demolai_2.object.youtube.VideoAdapter;
+import com.example.santai.demolai_2.object.youtube.YouTubeVideos;
 
 import java.util.Vector;
 
@@ -49,12 +55,12 @@ public class todaysRankActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager( new LinearLayoutManager(this));
-        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/QIPPTfTyWm8\" frameborder=\"0\" allowfullscreen></iframe>") );
-        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/oHyt7IxE-pY\" frameborder=\"0\" allowfullscreen></iframe>") );
-        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/C9hMTm6Ouv4\" frameborder=\"0\" allowfullscreen></iframe>") );
-        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/VQ_VgguT_us\" frameborder=\"0\" allowfullscreen></iframe>") );
-        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/UV6ine69kQ0\" frameborder=\"0\" allowfullscreen></iframe>") );
+        recyclerView.setLayoutManager( new GridLayoutManager(this,2));
+        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/QIPPTfTyWm8\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>") );
+        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/oHyt7IxE-pY\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>") );
+        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/C9hMTm6Ouv4\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>") );
+        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/VQ_VgguT_us\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>") );
+        youtubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/UV6ine69kQ0\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe>") );
         VideoAdapter videoAdapter = new VideoAdapter(youtubeVideos);
         recyclerView.setAdapter(videoAdapter);
 
@@ -129,13 +135,16 @@ public class todaysRankActivity extends AppCompatActivity {
         outPutfileUri = Uri.fromFile(file);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outPutfileUri);
         startActivityForResult(intent, TAKE_PIC);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data)
     {
+        Log.e("debugFlag","========");
         if (requestCode == TAKE_PIC && resultCode == RESULT_OK){
             Toast.makeText(this, "Recorded " + outPutfileUri.toString(),Toast.LENGTH_LONG).show();
         }
+        Log.e("debugFlag","===+++++++++=====");
     }
 
     public void uploadButtonOnClick(View view) {

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:paddingTop="4dp"
-        android:text="example"
+        android:text=""
         android:textColor="#ffffff" />
 
 </LinearLayout>
