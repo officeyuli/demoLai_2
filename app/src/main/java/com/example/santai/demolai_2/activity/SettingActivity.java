@@ -82,14 +82,19 @@ public class SettingActivity extends AppCompatActivity {
                 }
                 else if (id == R.id.myVideo) {
                     // 按下「我的影片」要做的事
-                    return true;
-                } else if (id == R.id.settings) {
-                    // 按下「設定」要做的事
                     Intent intent = new Intent();
-                    intent.setClass(SettingActivity.this, SettingActivity.class);
+                    intent.setClass(SettingActivity.this, MyVideoActivity.class);
                     startActivity(intent);
 
                     SettingActivity.this.finish();//結束目前 Activity
+                    return true;
+                } else if (id == R.id.settings) {
+                    // 按下「設定」要做的事
+//                    Intent intent = new Intent();
+//                    intent.setClass(SettingActivity.this, SettingActivity.class);
+//                    startActivity(intent);
+//
+//                    SettingActivity.this.finish();//結束目前 Activity
 
                     return true;
                 }
