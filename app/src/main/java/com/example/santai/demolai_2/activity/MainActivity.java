@@ -55,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.settings) {
                     // 按下「設定」要做的事
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, SettingActivity.class);
+                    startActivity(intent);
 
+                    MainActivity.this.finish();//結束目前 Activity
                     return true;
                 }
 

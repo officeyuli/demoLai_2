@@ -9,4 +9,7 @@
     <string name="my_video_title">我的影片!</string>
     <string name="settings_title">設定!</string>
     <string name="header_slide_title">yo!</string>
+    <string name="login_in_success">歡迎登入!</string>
+    <string name="login_in_fail">登入失敗!</string>
+    <string name="login_title">請點擊按鈕登入!</string>
 </resources>

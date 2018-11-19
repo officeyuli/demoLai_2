@@ -140,11 +140,9 @@ public class todaysRankActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data)
     {
-        Log.e("debugFlag","========");
         if (requestCode == TAKE_PIC && resultCode == RESULT_OK){
             Toast.makeText(this, "Recorded " + outPutfileUri.toString(),Toast.LENGTH_LONG).show();
         }
-        Log.e("debugFlag","===+++++++++=====");
     }
 
     public void uploadButtonOnClick(View view) {
